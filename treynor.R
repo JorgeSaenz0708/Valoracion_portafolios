@@ -1,6 +1,5 @@
-
-#######################################
-## Programa Óptimización Treynor
+######################################
+## Programa Ã“ptimizaciÃ³n Treynor
 ## Permite solo Largos (pesos positivos)
 
 treynor <- function(retornos,rindice){
@@ -61,16 +60,12 @@ treynor <- function(retornos,rindice){
     rpot <- t(wi)%*%mu
     sigmapot <- sqrt(t(wi)%*%cov%*%wi)
     wi <- cbind(wi)
-    # if(n.optimo < n.act){
-    #     wi <- wi[1:n.act]
-    # }
-    # else{
-    #     wi <- wi[!is.na(wi)&wi>0]
-    # }
+    
     POT <- list()
     POT[[1]] <- wi
     POT[[2]] <- rpot
     POT[[3]] <- sigmapot
+    POT[[4]] <- n.optimo 
     return(POT)    
 }
     
