@@ -56,15 +56,18 @@ modeloMV <- function(clasif.sharpe){
         wpt <- Z/sumZ 
         rpt <- t(wpt)%*%mu
         sigmapt <- sqrt(t(wpt)%*%cov%*%wpt)
+        wpmvg <- t(wpmvg)
+        wpt <- t(wpt)
+        
         
         MV <- list()
         MV[[1]] <- wpo
         MV[[2]] <- rpo
         MV[[3]] <- sigmapo
-        MV[[4]] <- wpmvg
+        MV[[4]] <- t(wpmvg)
         MV[[5]] <- rpmvg
         MV[[6]] <- sigmapmvg
-        MV[[7]] <- wpt
+        MV[[7]] <- t(wpt)
         MV[[8]] <- rpt 
         MV[[9]] <- sigmapt
         return(MV)
