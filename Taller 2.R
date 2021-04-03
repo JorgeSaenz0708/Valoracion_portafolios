@@ -41,7 +41,7 @@ library(devtools)
 #library(remotes)
 
 rm(list=ls())
-setwd("C:/Users/Usuario/Desktop/portafolio")
+#setwd("C:/Users/Usuario/Desktop/portafolio")
 
 
 # source("codes/precios.R")
