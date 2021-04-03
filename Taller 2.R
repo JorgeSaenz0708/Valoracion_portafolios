@@ -1,4 +1,31 @@
-#Taller 2 
+
+       #Taller 2 
+
+if ( as.numeric(R.Version()$minor) >= 3.1 ) {
+           install.packages("slam")
+         } else {
+           url <- "https://cran.r-project.org/src/contrib/Archive/slam/slam_0.1-37.tar.gz"
+           if ( .Platform$OS.type == "unix" ) { ## unix
+             install.packages(url, repos=NULL, method="wget")
+           } else { ## windows
+             install.packages(url, repos=NULL, method="internal")
+           }
+        
+         }
+         install.packages("registry")
+         install.packages("ROI")
+         install.packages("R6")
+         install.packages("ROML", repos="http://R-Forge.R-project.org")
+         install.packages("ROML.portfolio", repos="http://R-Forge.R-project.org")
+        
+
+ #Portafolio Omega
+        #Cargar paquetes
+         library(ROI)
+         library(ROML)
+         library(ROML.portfolio)
+
+
 
 library(zoo)
 library(xts)
@@ -14,14 +41,16 @@ library(devtools)
 #library(remotes)
 
 rm(list=ls())
-#setwd("C:/Users/Samuel/OneDrive/Documents/Semestre 2021(1)/Valoración de portafolios")
-#source("codes/precios.R")
-#source("codes/modeloMV.R")
-#source("codes/treynor.R")
-#source("codes/sortino.R")
-#source("codes/omega.R")
-#source("codes/performance.R")
-#source("codes/performancefm.R")
+setwd("C:/Users/Usuario/Desktop/portafolio")
+
+
+# source("codes/precios.R")
+#  source("codes/modeloMV.R")
+# source("codes/treynor.R")
+# source("codes/sortino.R")
+# source("codes_2/omega_.R")
+# source("codes_2/performance_.R")
+# source("codes_2/performancefm_.R")
 
 devtools::source_url("https://github.com/JorgeSaenz0708/Valoracion_portafolios/blob/main/precios.R?raw=TRUE")
 devtools::source_url("https://github.com/JorgeSaenz0708/Valoracion_portafolios/blob/main/modeloMV.R?raw=TRUE")
@@ -143,7 +172,7 @@ text(sigmapomega,rpomega,labels="OM",pos = 2, cex=1)
 
 #-----------------------------------------------------------------
 #-----------------------------------------------------------------
-# Pesos óptimos
+# Pesos Ã³ptimos
 
 windows()
 par(mfrow = c(2, 3))
@@ -156,7 +185,7 @@ barplot(t(wpomega), main="Omega", axisnames = TRUE, beside = TRUE)
 #----------------------------------------------------------------
 #-----------------------------------------------------------------
 
-# Desempeño In-sample
+# DesempeÃ±o In-sample
 valor <- 100 # Valor inicial del portafolio 
 DH <- performance(clasif.sharpe,retornos,clasif.sortino,retpomega,r.indice)
 Performance <-ts(DH[[1]],start=2010, frequency=12)
@@ -200,7 +229,7 @@ Resumen
 #-----------------------------------------------------------------
 #-----------------------------------------------------------------
 
-# Desempeño Out-sample
+# DesempeÃ±o Out-sample
 
 fechai <- '2019-12-01'
 fechaf <- '2020-12-31'
@@ -218,7 +247,7 @@ Performance <-ts(DFM[[1]],start=2020, frequency=12)
 windows()
 plot(Performance[,"PMVG"], col='blue', type='l', 
      ylim=c(min(Performance)*0.9,max(Performance)), 
-     main="Evaluación de desempeño", ylab = "Valor")
+     main="EvaluaciÃ³n de desempeÃ±o", ylab = "Valor")
 lines(Performance[,"Sharpe"], col='black')
 lines(Performance[,"Treynor"], col='purple')
 lines(Performance[,"Sortino"], col='darkgreen')
@@ -226,3 +255,30 @@ lines(Performance[,"Omega"], col='orange')
 lines(Performance[,"Benchmark"], col='darkgray')
 legend("topleft",c("PMVG","Sharpe","Treynor","Sortino","Omega","Benchmark"),
        fill=c("blue","black","purple","darkgreen","orange","darkgray"))
+
+
+# --------------------------------------------------------------
+# Tabla resumen:
+
+Resumen2 <- matrix(0,4,6)
+rp.histfm <- DFM[[2]]
+rpfm <- round(rbind(rpmvg,rpomega,rpt,rpot,rps,mean(r.indice)),4)
+riesgopfm <- round(rbind(sigmapmvg,sigmapt,sd(rp.histfm[,3]),
+                       sd(rp.histfm[,4]),sigmapomega,sd(r.indice)),4)
+sharpep <- round(rbind((rpmvg-rf)/sigmapmvg,
+                       (rpt-rf)/sigmapt,
+                       (rpot-rf)/sd(rp.histfm[,3]),
+                       (rps-rf)/sd(rp.hisfmt[,4]),
+                       (rpomega-rf)/sigmapomega,
+                       (mean(r.indice)-rf)/sd(r.indice)),4)
+
+drawdown <- round(rbind(min(rp.hist[,1]),min(rp.hist[,2]),
+                        min(rp.hist[,3]),min(rp.hist[,4]),
+                        min(rp.hist[,5]),min(rp.hist[,6])),4)
+
+Resumen <- cbind(sharpep,rp,riesgop,drawdown)
+colnames(Resumen) <- c("Sharpe","Retorno","Riesgo","Drawdown")
+rownames(Resumen) <- c("PMVG","PT","POT","PS","POM","Indice")
+
+Resumen2
+
