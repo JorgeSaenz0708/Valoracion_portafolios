@@ -1,22 +1,22 @@
 
        #Taller 2 
 
-if ( as.numeric(R.Version()$minor) >= 3.1 ) {
-           install.packages("slam")
-         } else {
-           url <- "https://cran.r-project.org/src/contrib/Archive/slam/slam_0.1-37.tar.gz"
-           if ( .Platform$OS.type == "unix" ) { ## unix
-             install.packages(url, repos=NULL, method="wget")
-           } else { ## windows
-             install.packages(url, repos=NULL, method="internal")
-           }
-        
-         }
-         install.packages("registry")
-         install.packages("ROI")
-         install.packages("R6")
-         install.packages("ROML", repos="http://R-Forge.R-project.org")
-         install.packages("ROML.portfolio", repos="http://R-Forge.R-project.org")
+#if ( as.numeric(R.Version()$minor) >= 3.1 ) {
+ #          install.packages("slam")
+ #       } else {
+ #        url <- "https://cran.r-project.org/src/contrib/Archive/slam/slam_0.1-37.tar.gz"
+ #          if ( .Platform$OS.type == "unix" ) { ## unix
+ #            install.packages(url, repos=NULL, method="wget")
+ #          } else { ## windows
+ #            install.packages(url, repos=NULL, method="internal")
+ #          }
+       
+ #        }
+ #        install.packages("registry")
+ #        install.packages("ROI")
+ #        install.packages("R6")
+ #        install.packages("ROML", repos="http://R-Forge.R-project.org")
+ #        install.packages("ROML.portfolio", repos="http://R-Forge.R-project.org")
         
 
  #Portafolio Omega
